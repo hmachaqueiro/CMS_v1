@@ -1,0 +1,87 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Fix requisitos_v3 encoding",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"${workspaceFolder}\\_fix_encoding.ps1"
+			]
+		},
+		{
+			"label": "Fix requisitos_v3 encoding",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"${workspaceFolder}\\_fix_encoding.ps1"
+			]
+		},
+		{
+			"label": "List exact mojibake lines",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$p='${workspaceFolder}\\requisitos_v3.md'; $lines=Get-Content -Path $p -Encoding UTF8; $i=0; foreach($l in $lines){$i++; if($l -cmatch 'Ã|Â'){ Write-Output ($i.ToString()+': '+$l) }}"
+			]
+		},
+		{
+			"label": "List mojibake exact chars",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"${workspaceFolder}\\_list_mojibake.ps1"
+			]
+		},
+		{
+			"label": "List mojibake exact chars",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"${workspaceFolder}\\_list_mojibake.ps1"
+			]
+		},
+		{
+			"label": "Generate v3 html pages",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$root='C:\\Users\\a954653\\OneDrive - ATOS\\HM_Sources\\CMSintra\\v3'; $pages=@(@{f='index.html';t='Portal do Municipe v3 - Inicio';p='home'},@{f='login.html';t='Portal do Municipe v3 - Login';p='login'},@{f='portal.html';t='Portal do Municipe v3 - Area Pessoal';p='portal'},@{f='identidade.html';t='Portal do Municipe v3 - Identidade';p='identidade'},@{f='servicos.html';t='Portal do Municipe v3 - Servicos';p='servicos'},@{f='processos.html';t='Portal do Municipe v3 - Processos';p='processos'},@{f='urbanismo.html';t='Portal do Municipe v3 - Urbanismo';p='urbanismo'},@{f='reclamacoes.html';t='Portal do Municipe v3 - Reclamacoes';p='reclamacoes'},@{f='ocorrencias.html';t='Portal do Municipe v3 - Ocorrencias';p='ocorrencias'},@{f='pagamentos.html';t='Portal do Municipe v3 - Pagamentos';p='pagamentos'},@{f='caixa-postal.html';t='Portal do Municipe v3 - Caixa Postal';p='caixa-postal'},@{f='atendimento.html';t='Portal do Municipe v3 - Atendimento';p='atendimento'},@{f='assistente.html';t='Portal do Municipe v3 - Assistente';p='assistente'},@{f='carteira.html';t='Portal do Municipe v3 - Carteira';p='carteira'},@{f='app.html';t='Portal do Municipe v3 - App Movel';p='app'},@{f='participacao.html';t='Portal do Municipe v3 - Participacao';p='participacao'},@{f='beneficios.html';t='Portal do Municipe v3 - Beneficios';p='beneficios'},@{f='mobilidade.html';t='Portal do Municipe v3 - Mobilidade';p='mobilidade'},@{f='mapas.html';t='Portal do Municipe v3 - Mapas';p='mapas'},@{f='institucional.html';t='Portal do Municipe v3 - Institucional';p='institucional'},@{f='associativismo.html';t='Portal do Municipe v3 - Associativismo';p='associativismo'},@{f='ativos.html';t='Portal do Municipe v3 - Ativos';p='ativos'},@{f='contratos.html';t='Portal do Municipe v3 - Contratos';p='contratos'},@{f='educacao.html';t='Portal do Municipe v3 - Educacao';p='educacao'},@{f='estacionamento.html';t='Portal do Municipe v3 - Estacionamento';p='estacionamento'},@{f='campanhas.html';t='Portal do Municipe v3 - Campanhas';p='campanhas'},@{f='multiportal.html';t='Portal do Municipe v3 - Multiportal';p='multiportal'}); foreach($x in $pages){ $html=@\"<!DOCTYPE html>\n<html lang='pt'>\n<head>\n  <meta charset='UTF-8' />\n  <meta name='viewport' content='width=device-width, initial-scale=1.0' />\n  <title>$($x.t)</title>\n  <link rel='stylesheet' href='assets/styles.css' />\n</head>\n<body data-page='$($x.p)'>\n  <div id='app'></div>\n  <script src='assets/data.js'></script>\n  <script src='assets/bot-knowledge.js'></script>\n  <script src='assets/app.js'></script>\n</body>\n</html>\n\"@; Set-Content -Path (Join-Path $root $x.f) -Value $html -Encoding UTF8 }; Write-Output ('Created pages: ' + $pages.Count)"
+			]
+		},
+		{
+			"label": "Generate v3 html pages",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"${workspaceFolder}\\v3\\_gen_pages.ps1"
+			]
+		}
+	]
+}
